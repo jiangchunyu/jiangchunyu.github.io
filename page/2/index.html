@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Android," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -84,16 +84,12 @@
 
 
 
-<meta name="description" content="#前言在使用Retrofit过程中，通过服务器获取的数据，不一定是标准的json数据，当时就想能不能有一种方式，可以把数据直接获取到而不是解析好的数据">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Retrofit 自定义Converter.Factory实现直接接收String">
-<meta property="og:url" content="http://yoursite.com/2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ChunYu'blog">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="ChunYu'blog">
-<meta property="og:description" content="#前言在使用Retrofit过程中，通过服务器获取的数据，不一定是标准的json数据，当时就想能不能有一种方式，可以把数据直接获取到而不是解析好的数据">
-<meta property="og:updated_time" content="2016-09-09T12:21:34.894Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Retrofit 自定义Converter.Factory实现直接接收String">
-<meta name="twitter:description" content="#前言在使用Retrofit过程中，通过服务器获取的数据，不一定是标准的json数据，当时就想能不能有一种方式，可以把数据直接获取到而不是解析好的数据">
+<meta name="twitter:title" content="ChunYu'blog">
 
 
 
@@ -114,9 +110,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
-  <title> Retrofit 自定义Converter.Factory实现直接接收String | ChunYu'blog </title>
+  <title> ChunYu'blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -137,7 +133,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -224,9 +222,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -246,7 +244,10 @@
             
             
               
-                Retrofit 自定义Converter.Factory实现直接接收String
+                
+                <a class="post-title-link" href="/2016/08/20/Github-生成密钥并上传工程/" itemprop="url">
+                  Github 生成密钥并上传工程
+                </a>
               
             
           </h1>
@@ -258,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-09T14:19:19+08:00" content="2016-09-09">
-              2016-09-09
+            <time itemprop="dateCreated" datetime="2016-08-20T11:56:38+08:00" content="2016-08-20">
+              2016-08-20
             </time>
           </span>
 
@@ -272,8 +273,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
                   </a>
                 </span>
 
@@ -288,8 +289,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/" itemprop="commentsCount"></span>
+                <a href="/2016/08/20/Github-生成密钥并上传工程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/20/Github-生成密钥并上传工程/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -299,7 +300,7 @@
 
           
           
-             <span id="/2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/" class="leancloud_visitors" data-flag-title="Retrofit 自定义Converter.Factory实现直接接收String">
+             <span id="/2016/08/20/Github-生成密钥并上传工程/" class="leancloud_visitors" data-flag-title="Github 生成密钥并上传工程">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -321,122 +322,53 @@
       
 
       
-        <p>#前言<br>在使用Retrofit过程中，通过服务器获取的数据，不一定是标准的json数据，当时就想能不能有一种方式，可以把数据直接获取到而不是解析好的数据<br><a id="more"></a></p>
-<p>#开始实现<br>主要是实现MediaType，以及responseBodyConverter和requestBodyConverter方法；<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ToStringConverterFactory</span> <span class="keyword">extends</span> <span class="title">Converter</span>.<span class="title">Factory</span> </span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> MediaType MEDIA_TYPE = MediaType.parse(<span class="string">"text/plain"</span>);</div><div class="line"></div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="keyword">public</span> Converter&lt;ResponseBody, ?&gt; responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) &#123;</div><div class="line">		<span class="keyword">if</span> (String.class.equals(type)) &#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">new</span> Converter&lt;ResponseBody, String&gt;() &#123;</div><div class="line">				<span class="meta">@Override</span></div><div class="line">				<span class="function"><span class="keyword">public</span> String <span class="title">convert</span><span class="params">(ResponseBody value)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">					<span class="keyword">return</span> value.string();</div><div class="line">				&#125;</div><div class="line">			&#125;;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span> <span class="keyword">public</span> Converter&lt;?, RequestBody&gt; requestBodyConverter(Type type, Annotation[] parameterAnnotations,</div><div class="line">			Annotation[] methodAnnotations, Retrofit retrofit) &#123;</div><div class="line">		<span class="keyword">if</span> (String.class.equals(type)) &#123;</div><div class="line">			<span class="keyword">return</span> <span class="keyword">new</span> Converter&lt;String, RequestBody&gt;() &#123;</div><div class="line">				<span class="meta">@Override</span></div><div class="line">				<span class="function"><span class="keyword">public</span> RequestBody <span class="title">convert</span><span class="params">(String value)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">					<span class="keyword">return</span> RequestBody.create(MEDIA_TYPE, value);</div><div class="line">				&#125;</div><div class="line">			&#125;;</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>#开始使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">WechatService</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="meta">@GET</span>(<span class="string">"/txapi/weixin/wxhot"</span>) <span class="function">Call&lt;String&gt; <span class="title">getHotArticleStr</span><span class="params">(@Header(<span class="string">"apikey"</span>)</span> String apiKey,</span></div><div class="line">			@<span class="title">Query</span><span class="params">(<span class="string">"num"</span>)</span> <span class="keyword">int</span> num, @<span class="title">Query</span><span class="params">(<span class="string">"rand"</span>)</span> <span class="keyword">int</span> rand, @<span class="title">Query</span><span class="params">(<span class="string">"word"</span>)</span> String word, @<span class="title">Query</span><span class="params">(<span class="string">"page"</span>)</span> <span class="keyword">int</span> page,</div><div class="line">			@<span class="title">Query</span><span class="params">(<span class="string">"src"</span>)</span> String src);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getHotArticleRxString</span><span class="params">(<span class="keyword">int</span> num, <span class="keyword">int</span> rand, String word, <span class="keyword">int</span> page, String src)</span> </span>&#123;</div><div class="line">		Retrofit retrofit = <span class="keyword">new</span> Retrofit</div><div class="line">				.Builder()</div><div class="line">				.addConverterFactory(<span class="keyword">new</span> ToStringConverterFactory())</div><div class="line">				.baseUrl(baseurl).build();</div><div class="line">		WechatService service = retrofit.create(WechatService.class);</div><div class="line">		Call&lt;String&gt; resultObser = service.getHotArticleStr(baiduApiKey, num, rand, word, page, src);</div><div class="line">		resultObser.enqueue(<span class="keyword">new</span> Callback&lt;String&gt;() &#123;</div><div class="line">			<span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call&lt;String&gt; call, Response&lt;String&gt; response)</span> </span>&#123;</div><div class="line">				Log.e(<span class="string">"jiangcy"</span>, <span class="string">"ToStringConverterFactory : "</span> + response.body().toString());</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call&lt;String&gt; call, Throwable t)</span> </span>&#123;</div><div class="line"></div><div class="line">			&#125;</div><div class="line">		&#125;);</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
-<p><a href="https://github.com/jiangchunyu/RetrofitTest" target="_blank" rel="external">demo 地址</a></p>
-
+        
+          <p><strong>前言</strong><br>本文主要是关于GitHub，生成密钥并上传工程的步骤以及出现的问题<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/20/Github-生成密钥并上传工程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
       
     </div>
 
     <div>
       
-        
-
-      
     </div>
 
     <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="ChunYu WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-    </div>
-  </div>
-
-
       
     </div>
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Android/" rel="tag">#Android</a>
-          
-        </div>
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/" rel="next" title="google 官方mvp实例的实践之mvp-databinding-Rxjava（二）">
-                <i class="fa fa-chevron-left"></i> google 官方mvp实例的实践之mvp-databinding-Rxjava（二）
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/09/Android 基础类集锦/" rel="prev" title="Android 基础类集锦">
-                Android 基础类集锦 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-        <div class="ds-share flat" data-thread-key="2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/"
-     data-title="Retrofit 自定义Converter.Factory实现直接接收String"
-     data-content=""
-     data-url="http://yoursite.com/2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/">
-  <div class="ds-share-inline">
-    <ul  class="ds-share-icons-16">
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
-      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-
-    </ul>
-    <div class="ds-share-icons-more">
-    </div>
-  </div>
-</div>
-      
-    </div>
-  </div>
 
 
           </div>
           
 
-  <p>热评文章</p>
-  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
-
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/"
-           data-title="Retrofit 自定义Converter.Factory实现直接接收String" data-url="http://yoursite.com/2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -456,17 +388,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -545,17 +468,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -659,10 +571,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
