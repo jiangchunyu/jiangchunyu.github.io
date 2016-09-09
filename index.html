@@ -638,6 +638,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/06/RxNetty-在android上的使用之TCP长连接/" itemprop="url">
+                  RxNetty 在android上的使用之TCP长连接
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-06T00:14:14+08:00" content="2016-09-06">
+              2016-09-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/06/RxNetty-在android上的使用之TCP长连接/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/06/RxNetty-在android上的使用之TCP长连接/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/06/RxNetty-在android上的使用之TCP长连接/" class="leancloud_visitors" data-flag-title="RxNetty 在android上的使用之TCP长连接">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在上个项目开始我们开始使用tcp异步通信机制来实现所需要的功能，使用异步的方式主要的好处能够不阻塞，以便能在接收数据的时候更加流畅，我们选用了netty异步通讯框架来实现这个功能，之前我写了一篇关于netty实现异步通讯长连接的文章，但是在使用中我发现，有的时候会莫名其妙的报连接断开的现象，而且代码逻辑也不是特别好，之后我在github上发现rxnetty这个库不错（主要是最近在学习rx……的使用，所以在使用netty的时候就想会不会有一个使用rxjava实现的netty框架呢？于是在github上发现真的有 哈哈哈）；这个框架可以更根据设置读取数据的时间就可以自己尝试重连操作；本文中使用的代码完全是在上一篇netty实现长链接: <a href="http://www.jianshu.com/p/2dfecc719cd5">http://www.jianshu.com/p/2dfecc719cd5</a> 的基础上修改简化的，</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/06/RxNetty-在android上的使用之TCP长连接/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/01/RxJava实现事件总线-Rxbus代替eventbus-减少库的使用/" itemprop="url">
                   RxJava实现事件总线 Rxbus代替eventbus 减少库的使用
                 </a>
@@ -719,137 +850,6 @@
           <p>什么是Eventbus<br>EventBus定义：是一个发布 / 订阅的事件总线。 这么说应该包含4个成分：发布者，订阅者，事件，总线。 那么这四者的关系是什么呢？ 很明显：订阅者订阅事件到总线，发送者发布事件。<br>总结一下就是：我订阅你，你遇到事情了，发送事件，或者理解为更新动态，我就收到消息。<br>常用的地方<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/01/RxJava实现事件总线-Rxbus代替eventbus-减少库的使用/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/29/RxNetty-在android上的使用之TCP长连接/" itemprop="url">
-                  RxNetty 在android上的使用之TCP长连接
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-29T14:14:14+08:00" content="2016-08-29">
-              2016-08-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/29/RxNetty-在android上的使用之TCP长连接/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/29/RxNetty-在android上的使用之TCP长连接/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-             <span id="/2016/08/29/RxNetty-在android上的使用之TCP长连接/" class="leancloud_visitors" data-flag-title="RxNetty 在android上的使用之TCP长连接">
-               &nbsp; | &nbsp;
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               <span class="post-meta-item-text">阅读次数 </span>
-               <span class="leancloud-visitors-count"></span>
-              </span>
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在上个项目开始我们开始使用tcp异步通信机制来实现所需要的功能，使用异步的方式主要的好处能够不阻塞，以便能在接收数据的时候更加流畅，我们选用了netty异步通讯框架来实现这个功能，之前我写了一篇关于netty实现异步通讯长连接的文章，但是在使用中我发现，有的时候会莫名其妙的报连接断开的现象，而且代码逻辑也不是特别好，之后我在github上发现rxnetty这个库不错（主要是最近在学习rx……的使用，所以在使用netty的时候就想会不会有一个使用rxjava实现的netty框架呢？于是在github上发现真的有 哈哈哈）；这个框架可以更根据设置读取数据的时间就可以自己尝试重连操作；本文中使用的代码完全是在上一篇netty实现长链接: <a href="http://www.jianshu.com/p/2dfecc719cd5">http://www.jianshu.com/p/2dfecc719cd5</a> 的基础上修改简化的，</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/29/RxNetty-在android上的使用之TCP长连接/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
