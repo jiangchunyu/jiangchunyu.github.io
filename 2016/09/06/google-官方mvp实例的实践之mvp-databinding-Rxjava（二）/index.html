@@ -1,0 +1,821 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章主要是承接上一部分，给出我实现的mvp的主要实现代码；没有看过上一篇文章的建议看一下上一篇google 官方mvp实例的实践之mvp-databinding-Rxjava（一）闲话少许，继续放码；demo地址">
+<meta property="og:type" content="article">
+<meta property="og:title" content="google 官方mvp实例的实践之mvp-databinding-Rxjava（二）">
+<meta property="og:url" content="http://yoursite.com/2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/index.html">
+<meta property="og:site_name" content="ChunYu'blog">
+<meta property="og:description" content="这篇文章主要是承接上一部分，给出我实现的mvp的主要实现代码；没有看过上一篇文章的建议看一下上一篇google 官方mvp实例的实践之mvp-databinding-Rxjava（一）闲话少许，继续放码；demo地址">
+<meta property="og:updated_time" content="2016-09-06T13:24:10.241Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="google 官方mvp实例的实践之mvp-databinding-Rxjava（二）">
+<meta name="twitter:description" content="这篇文章主要是承接上一部分，给出我实现的mvp的主要实现代码；没有看过上一篇文章的建议看一下上一篇google 官方mvp实例的实践之mvp-databinding-Rxjava（一）闲话少许，继续放码；demo地址">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 2647126410,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/"/>
+
+  <title> google 官方mvp实例的实践之mvp-databinding-Rxjava（二） | ChunYu'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ChunYu'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">致力于代码纯净</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                google 官方mvp实例的实践之mvp-databinding-Rxjava（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-06T14:20:21+08:00" content="2016-09-06">
+              2016-09-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/" class="leancloud_visitors" data-flag-title="google 官方mvp实例的实践之mvp-databinding-Rxjava（二）">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章主要是承接上一部分，给出我实现的mvp的主要实现代码；<br>没有看过上一篇文章的建议看一下上一篇<a href="https://jiangchunyu.github.io/2016/09/06/google-%E5%AE%98%E6%96%B9mvp%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%AE%9E%E8%B7%B5%E4%B9%8Bmvp-databinding-Rxjava-%E4%B8%80/" target="_blank" rel="external">google 官方mvp实例的实践之mvp-databinding-Rxjava（一）</a><br>闲话少许，继续放码；<br><a href="https://github.com/jiangchunyu/googlemvp" target="_blank" rel="external">demo地址</a><br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class LoginCotract &#123;</div><div class="line">    public interface View extends BaseView&lt;Presenter&gt;&#123;</div><div class="line">        void loginSuccess();</div><div class="line">        void loginError(String error);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public interface Presenter extends BasePresenter&#123;</div><div class="line">        void login(String userName,String pwd);</div><div class="line">        void loginSuccess();</div><div class="line">        void loginError(String error);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line">public class LoginActivity extends BaseActivity implements LoginCotract.View &#123;</div><div class="line"></div><div class="line">    private ActLoginBinding mBinding;</div><div class="line">    private LoginPresenter mPresenter;</div><div class="line">    private DigLoginWait mDigLoginWait;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected int getLayoutId() &#123;</div><div class="line">        return R.layout.act_login;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onResume() &#123;</div><div class="line">        super.onResume();</div><div class="line">        mPresenter.onResume(this);</div><div class="line">        mDigLoginWait = new DigLoginWait(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onStop() &#123;</div><div class="line">        super.onStop();</div><div class="line">        mPresenter.onStop();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void onDestroy() &#123;</div><div class="line">        super.onDestroy();</div><div class="line">        mPresenter.onDestroy();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    protected void initBinding(ViewDataBinding binding) &#123;</div><div class="line">        mBinding = (ActLoginBinding) binding;</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    /**</div><div class="line">     * 登陆按钮</div><div class="line">     *</div><div class="line">     * @param view</div><div class="line">     */</div><div class="line">    public void onLogin(View view) &#123;</div><div class="line">        //通过databinding 实现对数据双向绑定</div><div class="line">        Log.e(&quot;jcy&quot;, &quot;UserName  &quot; + mBinding.getUserName() + &quot;  Password &quot; + mBinding.getPassword());</div><div class="line">        mDigLoginWait.showDialog();</div><div class="line">        mPresenter.login(mBinding.getUserName(), mBinding.getPassword());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 登陆成功</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    public void loginSuccess() &#123;</div><div class="line">        mDigLoginWait.closeDialog();</div><div class="line">        Toast.makeText(LoginActivity.this, &quot;登陆成功&quot;, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 登陆失败</div><div class="line">     *</div><div class="line">     * @param error 登陆失败原因</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    public void loginError(String error) &#123;</div><div class="line">        mDigLoginWait.closeDialog();</div><div class="line">        Toast.makeText(LoginActivity.this, error, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 初始化Presenter</div><div class="line">     */</div><div class="line">    public void initPresenter() &#123;</div><div class="line">        Log.e(&quot;jcy&quot;, &quot;  initPresenter &quot;);</div><div class="line">        mPresenter = new LoginPresenter(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 不如果是在Fragment中可以在初始化调用Fragment时传入</div><div class="line">     *</div><div class="line">     * @param presenter</div><div class="line">     */</div><div class="line">    @Override</div><div class="line">    public void setPresenter(LoginCotract.Presenter presenter) &#123;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line">package com.jcy.googlemvp.presenter;</div><div class="line"></div><div class="line">import android.content.Context;</div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">import com.jcy.googlemvp.contract.LoginCotract;</div><div class="line">import com.jcy.googlemvp.model.LoginModel;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @className: LoginPresenter</div><div class="line"> * @desc:</div><div class="line"> * @author: Jiangcy</div><div class="line"> * @datetime: 2016/9/3</div><div class="line"> */</div><div class="line">public class LoginPresenter implements LoginCotract.Presenter &#123;</div><div class="line"></div><div class="line">    private LoginCotract.View view;</div><div class="line">    private LoginModel mModel;</div><div class="line"></div><div class="line"></div><div class="line">    public LoginPresenter(LoginCotract.View view) &#123;</div><div class="line">        this.view = view;</div><div class="line">        view.setPresenter(this);</div><div class="line">        mModel = new LoginModel(this);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void login(String userName, String pwd) &#123;</div><div class="line">        mModel.login(userName, pwd);</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void loginSuccess() &#123;</div><div class="line">        view.loginSuccess();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void loginError(String error) &#123;</div><div class="line">        view.loginError(error);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onResume(Context context) &#123;</div><div class="line">        Log.e(&quot;jcy&quot;, &quot;  onResume &quot;);</div><div class="line">        mModel.onResume(context);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onStop() &#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onDestroy() &#123;</div><div class="line">        mModel.onDestroy();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div></pre></td><td class="code"><pre><div class="line">package com.jcy.googlemvp.model;</div><div class="line"></div><div class="line">import android.util.Log;</div><div class="line"></div><div class="line">import com.jcy.googlemvp.base.BaseModel;</div><div class="line">import com.jcy.googlemvp.data.RequestData;</div><div class="line">import com.jcy.googlemvp.presenter.LoginPresenter;</div><div class="line">import com.jcy.googlemvp.rxbus.EventType;</div><div class="line">import com.jcy.googlemvp.utils.StringUtil;</div><div class="line"></div><div class="line">import rx.Observable;</div><div class="line">import rx.Subscriber;</div><div class="line">import rx.android.schedulers.AndroidSchedulers;</div><div class="line">import rx.functions.Action1;</div><div class="line">import rx.schedulers.Schedulers;</div><div class="line"></div><div class="line">/**</div><div class="line"> * @desc:</div><div class="line"> * @author: Jiangcy</div><div class="line"> * @datetime: 2016/9/3</div><div class="line"> */</div><div class="line">public class LoginModel extends BaseModel&lt;LoginPresenter&gt;&#123;</div><div class="line">    private final int LOGIN_ERROR = 0x0010;</div><div class="line">    private final int LOGIN_SUCCESS = 0x0011;</div><div class="line">    private static final String TAG = &quot;LoginModel&quot;;</div><div class="line"></div><div class="line">    public LoginModel(LoginPresenter mPresenter) &#123;</div><div class="line">       super(mPresenter);</div><div class="line">        initReciever(EventType.REC_LOGIN);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    public void login(final String userName, final String pwd) &#123;</div><div class="line">        Log.d(TAG, &quot;login: userName &quot;+userName+&quot;  isBlank &quot;+StringUtil.isBlank(userName));</div><div class="line">        Log.d(TAG, &quot;login: pwd      &quot;+pwd+&quot;  isBlank &quot;+StringUtil.isBlank(pwd));</div><div class="line">        if (StringUtil.isBlank(userName) || StringUtil.isBlank(pwd)) &#123;</div><div class="line">            mPresenter.loginError(&quot;用户名或者密码为空，请输入正确的用户名或密码&quot;);</div><div class="line">            return;</div><div class="line">        &#125;</div><div class="line">        //模拟网络登陆环境</div><div class="line">        Observable.create(new Observable.OnSubscribe&lt;RequestData&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public void call(Subscriber&lt;? super RequestData&gt; subscriber) &#123;</div><div class="line">                try &#123;</div><div class="line">                    Thread.sleep(2 * 1000);</div><div class="line">                &#125; catch (InterruptedException e) &#123;</div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">                RequestData requestData = new RequestData();</div><div class="line">                if (userName.equals(&quot;one&quot;)) &#123;</div><div class="line">                    //用户名不存在</div><div class="line">                    requestData.setCode(LOGIN_ERROR);</div><div class="line">                    requestData.setInfo(&quot;用户名不存在，请先注册&quot;);</div><div class="line"></div><div class="line">                &#125; else if (userName.equals(&quot;admin&quot;) || pwd.equals(&quot;admin&quot;)) &#123;</div><div class="line">                    //登陆成功</div><div class="line">                    requestData.setCode(LOGIN_SUCCESS);</div><div class="line">                    requestData.setInfo(&quot;&quot;);</div><div class="line">                &#125; else &#123;</div><div class="line">                    //用户名或者密码不正确</div><div class="line">                    requestData.setCode(LOGIN_ERROR);</div><div class="line">                    requestData.setInfo(&quot;用户名或者密码不正确&quot;);</div><div class="line">                &#125;</div><div class="line">                subscriber.onNext(requestData);</div><div class="line">            &#125;</div><div class="line">        &#125;).subscribeOn(Schedulers.io())</div><div class="line">                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1&lt;RequestData&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public void call(RequestData requestData) &#123;</div><div class="line">                if(requestData.getCode()==LOGIN_ERROR)&#123;</div><div class="line">                    mPresenter.loginError(requestData.getInfo());</div><div class="line">                &#125;else if(requestData.getCode()==LOGIN_SUCCESS)&#123;</div><div class="line">                    mPresenter.loginSuccess();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;, new Action1&lt;Throwable&gt;() &#123;</div><div class="line">            @Override</div><div class="line">            public void call(Throwable throwable) &#123;</div><div class="line">                mPresenter.loginError(&quot;网络出现问题，请重新登陆&quot;+throwable.toString());</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onMainEvent(String action, Object event) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onThreadEvent(String action, Object event) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码中已经加入了详细的说明，这里就不再过多的赘述了；<br><a href="https://github.com/jiangchunyu/googlemvp" target="_blank" rel="external">demo地址</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="ChunYu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/05/google-官方mvp实例的实践之mvp-databinding-Rxjava-一/" rel="next" title="google 官方mvp实例的实践之mvp-databinding-Rxjava (一)">
+                <i class="fa fa-chevron-left"></i> google 官方mvp实例的实践之mvp-databinding-Rxjava (一)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/09/Retrofit 自定义Converter.Factory实现直接接收String/" rel="prev" title="Retrofit 自定义Converter.Factory实现直接接收String">
+                Retrofit 自定义Converter.Factory实现直接接收String <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/"
+     data-title="google 官方mvp实例的实践之mvp-databinding-Rxjava（二）"
+     data-content=""
+     data-url="http://yoursite.com/2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/"
+           data-title="google 官方mvp实例的实践之mvp-databinding-Rxjava（二）" data-url="http://yoursite.com/2016/09/06/google-官方mvp实例的实践之mvp-databinding-Rxjava（二）/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ChunYu" />
+          <p class="site-author-name" itemprop="name">ChunYu</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jiangchunyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/6abcf30bc0db/latest_articles" title="简书" target="_blank">简书</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/jcy2sls" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChunYu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"jiangchunyu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("92bWWkoUL0qjIP86aJi9GmgO-gzGzoHsz", "7MqqFQJmxEbChEd4F85dmyWR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,845 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Ubuntu," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="记录自己在安装配置buck过程中出现的bug，写本文的主要目的是放了方便记录，如果文中哪些技术使用不当，希望能改指出;Buck环境配置
+有两种方式可以下载Buck，一种是通过brew（这个通过apt-get install brew ）安装，但是由于中国网络的原因，我并没有安装成功，所以我使用了第二种方式，通过源码安装;需要下载buck和Watchman源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu 安装facebook的buck">
+<meta property="og:url" content="http://yoursite.com/2016/08/26/Ubuntu-安装facebook的buck/index.html">
+<meta property="og:site_name" content="ChunYu'blog">
+<meta property="og:description" content="记录自己在安装配置buck过程中出现的bug，写本文的主要目的是放了方便记录，如果文中哪些技术使用不当，希望能改指出;Buck环境配置
+有两种方式可以下载Buck，一种是通过brew（这个通过apt-get install brew ）安装，但是由于中国网络的原因，我并没有安装成功，所以我使用了第二种方式，通过源码安装;需要下载buck和Watchman源码">
+<meta property="og:updated_time" content="2016-09-09T12:28:39.547Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu 安装facebook的buck">
+<meta name="twitter:description" content="记录自己在安装配置buck过程中出现的bug，写本文的主要目的是放了方便记录，如果文中哪些技术使用不当，希望能改指出;Buck环境配置
+有两种方式可以下载Buck，一种是通过brew（这个通过apt-get install brew ）安装，但是由于中国网络的原因，我并没有安装成功，所以我使用了第二种方式，通过源码安装;需要下载buck和Watchman源码">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 2647126410,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/26/Ubuntu-安装facebook的buck/"/>
+
+  <title> Ubuntu 安装facebook的buck | ChunYu'blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ChunYu'blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">致力于代码纯净</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ubuntu 安装facebook的buck
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-26T14:37:29+08:00" content="2016-08-26">
+              2016-08-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Ubuntu/" itemprop="url" rel="index">
+                    <span itemprop="name">Ubuntu</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/26/Ubuntu-安装facebook的buck/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/26/Ubuntu-安装facebook的buck/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/08/26/Ubuntu-安装facebook的buck/" class="leancloud_visitors" data-flag-title="Ubuntu 安装facebook的buck">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>记录自己在安装配置buck过程中出现的bug，写本文的主要目的是放了方便记录，如果文中哪些技术使用不当，希望能改指出;<br><strong><br>Buck环境配置
+</strong><br>有两种方式可以下载Buck，一种是通过brew（这个通过apt-get install brew ）安装，但是由于中国网络的原因，我并没有安装成功，所以我使用了第二种方式，通过源码安装;<br>需要下载<a href="https://github.com/facebook/buck" target="_blank" rel="external">buck</a>和<a href="https://github.com/facebook/watchman" target="_blank" rel="external">Watchman</a>源码<br><a id="more"></a><br>克隆buck源码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/facebook/buck.git</div></pre></td></tr></table></figure></p>
+<p>克隆watchman源码，Facebook 开源的一个文件监控服务，用来监视文件并且记录文件的改动情况，当文件变更它可以触发一些操作，例如执行一些命令等等。安装watchman，是为了避免Buck每次都去解析 <a href="https://buckbuild.com/concept/build_file.html" target="_blank" rel="external">build files</a>，同时可以缓存其他一些东西，减少编译时间。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/facebook/watchman.git</div></pre></td></tr></table></figure></p>
+<p>下载速度相当之坑爹，由于下载这个源码的原因，耽误了我将近一天的时间;<br>有需要的同学可以去我的网盘中下载日期是2016/08/09 （这可是情人节啊，为了下载这个都没过好） 网盘地址[buck]:<a href="http://yunpan.cn/c6bZ2hD5bXKfD" target="_blank" rel="external">http://yunpan.cn/c6bZ2hD5bXKfD</a> （提取码：71c6）和[watchman]: <a href="http://yunpan.cn/c6bZ6GxEjcwvi" target="_blank" rel="external">http://yunpan.cn/c6bZ6GxEjcwvi</a> （提取码：68a5）;<br>在下载源码的同时可以先将编译源码所需要的<strong>环境配置</strong>好;</p>
+<p>//编译watchman所需要<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install automake</div></pre></td></tr></table></figure></p>
+<p><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank" rel="external">Oracle JDK 7</a><br><a href="http://ant.apache.org/" target="_blank" rel="external">Apache Ant 1.8 (or newer)</a><br><a href="https://www.python.org/downloads/" target="_blank" rel="external">Python 2.6 or 2.7</a><br><a href="http://git-scm.com/download" target="_blank" rel="external">Git</a><br>C 编译器：<a href="http://gcc.gnu.org/" target="_blank" rel="external">gcc</a>或者<a href="http://clang.llvm.org/get_started.html" target="_blank" rel="external">clang</a><br><a href="https://dl.google.com/dl/android/studio/ide-zips/2.0.0.20/android-studio-ide-143.2739321-linux.zip" target="_blank" rel="external">Android SDK</a><br><a href="http://pan.baidu.com/s/1c2Now4g" target="_blank" rel="external">Android NDK（r10e）</a></p>
+<p>JDK,Android SDK 配置配置查看 我之前写的一片文章<a href="http://www.jianshu.com/p/9c035cdc1899" target="_blank" rel="external">http://www.jianshu.com/p/9c035cdc1899</a><br><strong>安装NDK</strong><br>Android  NDK 这个一定要使用r10e，我之前使用的r11b但是由于在编译buck的过程中没有成功，提示没有arm-linux-androideabi-4.8，后来使用r10e，编译通过;<br>下载NDK后由于是bin格式，所以直接安装即可，安装之前不要忘记给权限，我的安装地址是/opt/Android/NDK/android-ndk-r10e，安装成功之后配置环境变量;<br>首先sudo gedit /etc/profile将环境变量添加到最后;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export NDK_HOME=/opt/Android/NDK/android-ndk-r10e</div><div class="line">export PATH=$NDK_HOME:$PATH</div></pre></td></tr></table></figure></p>
+<p><strong>安装 ANT</strong><br>下载<a href="http://ant.apache.org/" target="_blank" rel="external">Apache Ant 1.8 (or newer)</a> <a href="http://ant.apache.org/，我使用的是最新版，apache-ant-1.9.7，解压到/opt/apache-ant-1.9.7" target="_blank" rel="external">http://ant.apache.org/，我使用的是最新版，apache-ant-1.9.7，解压到/opt/apache-ant-1.9.7</a><br>之后配置环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export ANT_HOME=/opt/apache-ant-1.9.7</div><div class="line">export PATH=$ANT_HOME/bin:$PATH</div></pre></td></tr></table></figure></p>
+<p>通过ant -version 查看是否安装成功<br><strong>安装GIT</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install git</div></pre></td></tr></table></figure></p>
+<p><strong>安装python</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install python-dev</div></pre></td></tr></table></figure></p>
+<p>通过输入 python查看安装版本，由于我之前使用的是ubuntu自带的python，在编译watchman的时候提示，没有python.h 文件;忘记错误是什么了，反正是重新安装了一下最新的python之后没有问题了，<br><strong>GCC</strong><br>这个ubuntu里面自带，这里不再赘述了;</p>
+<hr>
+<p>buck和watchman的源码终于下完了;<br><strong>开始编译watchman</strong><br>进入到watchman的目录之后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ cd watchman </div><div class="line">$ ./autogen.sh</div><div class="line">$ ./configure </div><div class="line">$ make </div><div class="line">$ sudo make install</div></pre></td></tr></table></figure></p>
+<p>在经历各种问题之后终于安装成功了;watchman -v 查看版本 我的是4.7.0</p>
+<p><strong>开始编译buck</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cd buck</div><div class="line">$ ant</div><div class="line">$ ./bin/buck --help</div></pre></td></tr></table></figure></p>
+<p>在编译过程中出现过由于NDK 版本不对导致编译失败，还有就是由于源码下载不完整导致编译失败;<br>以后会频繁使用到buck安装目录下面的bin/buck命令，所以为了方便在Terminal中直接执行buck命令，需要将该目录添加到环境变量中，cd到用户主目录，打开.bash_profile文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gedit /etc/profile</div></pre></td></tr></table></figure></p>
+<p>添加如下配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">export PATH=/home/jiangcy/software/buck-master/bin:$PATH</div></pre></td></tr></table></figure></p>
+<p>接着执行如下命令使该配置立即生效：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source  /etc/profile</div></pre></td></tr></table></figure>
+<p><strong>快速创建基于 Buck 构建的 Android 工程</strong></p>
+<p>使用命令可以快速创建一个Android工程，该命令执行过程中会要求你补全如下两个参数的值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch .buckconfig &amp;&amp; buck quickstart</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">Enter the directory where you would like to create the project: BuckTest</div><div class="line">Thanks for installing Buck!</div><div class="line"></div><div class="line">In this quickstart project, the file apps/myapp/BUCK defines the build rules. </div><div class="line"></div><div class="line">At this point, you should move into the project directory and try running:</div><div class="line"></div><div class="line">    buck build //apps/myapp:app</div><div class="line"></div><div class="line">or:</div><div class="line"></div><div class="line">    buck build app</div><div class="line"></div><div class="line">See .buckconfig for a full list of aliases.</div><div class="line"></div><div class="line">If you have an Android device connected to your computer, you can also try:</div><div class="line"></div><div class="line">    buck install app</div><div class="line"></div><div class="line">This information is located in the file README.md if you need to access it</div><div class="line">later.</div></pre></td></tr></table></figure>
+<p>进入到工程根目录，在Terminal中输入如下命令创建IntelliJ工程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">buck project --ide IntelliJ</div></pre></td></tr></table></figure></p>
+<p>创建成功，显示一下数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">jiangcy@jiangcy:~/jcybuck/BuckTest/BuckTest$ buck project --ide IntelliJ</div><div class="line">Using watchman.</div><div class="line">OK   //java/com/example/activity:activity#dummy_r_dot_java BUILT_LOCALLY buck-out/gen/java/com/example/activity/__activity#dummy_r_dot_java_dummyrdotjava_output__/activity#dummy_r_dot_java.jar</div><div class="line">[-] PROCESSING BUCK FILES...FINISHED 0.1s [100%] 🐳  New buck daemon</div><div class="line">[-] GENERATING PROJECT...FINISHED 1.5s</div><div class="line">[-] DOWNLOADING... (0.00 B/S AVG, TOTAL: 0.00 B, 0 Artifacts)</div><div class="line">[-] BUILDING...FINISHED 0.7s [100%] (2/2 JOBS, 2 UPDATED, 2 [100.0%] CACHE MISS)</div></pre></td></tr></table></figure></p>
+<p>之后进入工程目录查看Readme中的的使用命令，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">Thanks for installing Buck!</div><div class="line"></div><div class="line">In this quickstart project, the file apps/myapp/BUCK defines the build rules. </div><div class="line"></div><div class="line">At this point, you should move into the project directory and try running:</div><div class="line"></div><div class="line">    buck build //apps/myapp:app</div><div class="line"></div><div class="line">or:</div><div class="line"></div><div class="line">    buck build app</div><div class="line"></div><div class="line">See .buckconfig for a full list of aliases.</div><div class="line"></div><div class="line">If you have an Android device connected to your computer, you can also try:</div><div class="line"></div><div class="line">    buck install app</div><div class="line"></div><div class="line">This information is located in the file README.md if you need to access it</div><div class="line">later.</div></pre></td></tr></table></figure></p>
+<p>主要参考文献<br><a href="http://www.jianshu.com/p/1e990aac7836" target="_blank" rel="external">基于Facebook Buck改造Android构建系统之初体验</a><br><a href="http://www.blogjava.net/xiaomage234/archive/2014/10/22/418951.html" target="_blank" rel="external">使用buck构建你的Android App</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.jpg" alt="ChunYu WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Ubuntu/" rel="tag">#Ubuntu</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/23/ubuntu手记之安装与配置（JDK，SDK-环境变量配置）/" rel="next" title="ubuntu手记之安装与配置（JDK，SDK 环境变量配置）">
+                <i class="fa fa-chevron-left"></i> ubuntu手记之安装与配置（JDK，SDK 环境变量配置）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/27/Ubuntu-手记之RTX-腾讯通/" rel="prev" title="Ubuntu 手记之RTX (腾讯通)">
+                Ubuntu 手记之RTX (腾讯通) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/26/Ubuntu-安装facebook的buck/"
+     data-title="Ubuntu 安装facebook的buck"
+     data-content=""
+     data-url="http://yoursite.com/2016/08/26/Ubuntu-安装facebook的buck/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/26/Ubuntu-安装facebook的buck/"
+           data-title="Ubuntu 安装facebook的buck" data-url="http://yoursite.com/2016/08/26/Ubuntu-安装facebook的buck/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="ChunYu" />
+          <p class="site-author-name" itemprop="name">ChunYu</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jiangchunyu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jianshu.com/users/6abcf30bc0db/latest_articles" title="简书" target="_blank">简书</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/jcy2sls" title="CSDN" target="_blank">CSDN</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ChunYu</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"jiangchunyu"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("92bWWkoUL0qjIP86aJi9GmgO-gzGzoHsz", "7MqqFQJmxEbChEd4F85dmyWR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
